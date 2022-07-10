@@ -53,6 +53,31 @@ GROUP BY mtt.TreatmentTypeId, mtt.TreatmentTypeName
 HAVING COUNT(mt.TreatmentId) > 5
 ORDER BY COUNT(mt.TreatmentId) DESC
 
+SELECT
+	hss.TransactionDate,
+	mc.CustomerName,
+	mt.TreatmentName,
+	mt.Price
+FROM HeaderSalonServices as hss
+JOIN MsCustomer as mc on mc.CustomerId = hss.CustomerId
+JOIN MsStaff as ms on ms.StaffId = hss.StaffId
+JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
+JOIN MsTreatment mt on mt.TreatmentId = dss.TreatmentId
+WHERE DATENAME(WEEKDAY,TransactionDate) = 'Thursday' AND ms.StaffName LIKE '%Ryan%'
+ORDER BY TransactionDate, mc.CustomerName ASC
+
+SELECT
+	hss.TransactionDate,
+	mc.CustomerName,
+	SUM(mt.Price)[TotalPrice]
+FROM HeaderSalonServices as hss
+JOIN MsCustomer as mc on hss.CustomerId = mc.CustomerId
+JOIN DetailSalonServices as dss on hss.TransactionId = dss.TransactionId
+JOIN MsTreatment as mt on mt.TreatmentId = dss.TreatmentId
+WHERE DAY(hss.TransactionDate) > 20
+GROUP BY hss.TransactionDate, mc.CustomerName
+ORDER BY TransactionDate
+
 SELECT * FROM MsTreatmentType
 SELECT * FROM MsTreatment
 SELECT * FROM MsStaff

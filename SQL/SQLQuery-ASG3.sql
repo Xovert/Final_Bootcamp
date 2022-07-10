@@ -81,19 +81,6 @@ ORDER BY TransactionDate
 SELECT
 	hss.TransactionDate,
 	mc.CustomerName,
-	mt.TreatmentName,
-	mt.Price
-FROM HeaderSalonServices as hss
-JOIN MsCustomer as mc on mc.CustomerId = hss.CustomerId
-JOIN MsStaff as ms on ms.StaffId = hss.StaffId
-JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
-JOIN MsTreatment mt on mt.TreatmentId = dss.TreatmentId
-WHERE DATENAME(WEEKDAY,TransactionDate) = 'Thursday' AND ms.StaffName LIKE '%Ryan%'
-ORDER BY TransactionDate, mc.CustomerName ASC
-
-SELECT
-	hss.TransactionDate,
-	mc.CustomerName,
 	SUM(mt.Price)[TotalPrice]
 FROM HeaderSalonServices as hss
 JOIN MsCustomer as mc on hss.CustomerId = mc.CustomerId

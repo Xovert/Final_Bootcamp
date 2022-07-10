@@ -39,6 +39,37 @@ FROM HeaderSalonServices as hss JOIN MsCustomer as mc
 on mc.CustomerId = hss.CustomerId
 WHERE DATENAME(WEEKDAY, hss.TransactionDate) = 'Saturday'
 
+SELECT
+	ms.StaffName, 
+	mc.CustomerName, 
+	REPLACE(CustomerPhone, '0', '+62')[CustomerPhone], 
+	mc.CustomerAddress
+FROM HeaderSalonServices as hss JOIN MsCustomer mc on hss.CustomerId = mc.CustomerId
+JOIN MsStaff as ms on hss.StaffId = ms.StaffId
+WHERE (StaffName LIKE '% % %' AND CustomerName LIKE '[aiueo]%')
+
+SELECT 
+	ms.StaffName, 
+	mt.TreatmentName, 
+	DATEDIFF(DAY, hss.TransactionDate, '2012/12/24')[Term of Transaction]
+FROM DetailSalonServices as dss JOIN HeaderSalonServices as hss
+ON dss.TransactionId = hss.TransactionId
+JOIN MsStaff as ms ON hss.StaffId = ms.StaffId
+JOIN MsTreatment as mt ON dss.TreatmentId = mt.TreatmentId
+WHERE (LEN(TreatmentName) > 20 OR TreatmentName LIKE '% %')
+
+SELECT 
+	TransactionDate, 
+	CustomerName, 
+	TreatmentName, CAST(Price AS INT)*20/100[Discount], 
+	PaymentType[Payment Type]
+From DetailSalonServices as dss
+JOIN HeaderSalonServices as hss ON dss.TransactionId = hss.TransactionId
+JOIN MsStaff as ms ON hss.StaffId = ms.StaffId
+JOIN MsTreatment as mt ON dss.TreatmentId = mt.TreatmentId
+JOIN MsCustomer as mc ON hss.CustomerId = mc.CustomerId
+WHERE TransactionDate = '2012/12/22'
+
 SELECT * FROM MsTreatmentType
 SELECT * FROM MsTreatment
 SELECT * FROM MsStaff

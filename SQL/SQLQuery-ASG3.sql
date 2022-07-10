@@ -54,6 +54,15 @@ HAVING COUNT(mt.TreatmentId) > 5
 ORDER BY COUNT(mt.TreatmentId) DESC
 
 SELECT
+	LEFT(ms.StaffName, CHARINDEX(' ',ms.StaffName) - 1)[StaffName],
+	hss.TransactionId [TransactionID],
+	COUNT(dss.TreatmentId) [Total Treatment per Transaction]
+FROM MsStaff as ms
+JOIN HeaderSalonServices as hss on hss.StaffId = ms.StaffId
+JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
+GROUP BY ms.StaffName, hss.TransactionId
+
+SELECT
 	hss.TransactionDate,
 	mc.CustomerName,
 	mt.TreatmentName,
@@ -65,18 +74,6 @@ JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
 JOIN MsTreatment mt on mt.TreatmentId = dss.TreatmentId
 WHERE DATENAME(WEEKDAY,TransactionDate) = 'Thursday' AND ms.StaffName LIKE '%Ryan%'
 ORDER BY TransactionDate, mc.CustomerName ASC
-
-SELECT
-	hss.TransactionDate,
-	mc.CustomerName,
-	SUM(mt.Price)[TotalPrice]
-FROM HeaderSalonServices as hss
-JOIN MsCustomer as mc on hss.CustomerId = mc.CustomerId
-JOIN DetailSalonServices as dss on hss.TransactionId = dss.TransactionId
-JOIN MsTreatment as mt on mt.TreatmentId = dss.TreatmentId
-WHERE DAY(hss.TransactionDate) > 20
-GROUP BY hss.TransactionDate, mc.CustomerName
-ORDER BY TransactionDate
 
 SELECT
 	hss.TransactionDate,

@@ -1,4 +1,6 @@
-# SQL_Bootcamp
-Assignment 1 - 3 Final Bootcamp, SQL
+# Final Bootcamp
+Assignment 1 - 3 SQL
+Assignment Java/OOP
+Assignment Python/MachineLearning
 
-Berisi assignment untuk SQL Bootcamp
+Berisi assignment-assignment dari Final Bootcamp

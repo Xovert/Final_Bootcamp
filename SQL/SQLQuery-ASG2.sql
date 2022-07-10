@@ -59,10 +59,10 @@ JOIN MsTreatment as mt ON dss.TreatmentId = mt.TreatmentId
 WHERE (LEN(TreatmentName) > 20 OR TreatmentName LIKE '% %')
 
 SELECT 
-	TransactionDate, 
-	CustomerName, 
-	TreatmentName, CAST(Price AS INT)*20/100[Discount], 
-	PaymentType[Payment Type]
+	hss.TransactionDate, 
+	mc.CustomerName, 
+	mt.TreatmentName, CAST(Price AS INT)*20/100[Discount], 
+	hss.PaymentType[Payment Type]
 From DetailSalonServices as dss
 JOIN HeaderSalonServices as hss ON dss.TransactionId = hss.TransactionId
 JOIN MsStaff as ms ON hss.StaffId = ms.StaffId

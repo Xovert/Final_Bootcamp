@@ -53,33 +53,6 @@ GROUP BY mtt.TreatmentTypeId, mtt.TreatmentTypeName
 HAVING COUNT(mt.TreatmentId) > 5
 ORDER BY COUNT(mt.TreatmentId) DESC
 
-SELECT
-	LEFT(ms.StaffName, CHARINDEX(' ',ms.StaffName) - 1)[StaffName],
-	hss.TransactionId [TransactionID],
-	COUNT(dss.TreatmentId) [Total Treatment per Transaction]
-FROM MsStaff as ms
-JOIN HeaderSalonServices as hss on hss.StaffId = ms.StaffId
-JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
-GROUP BY ms.StaffName, hss.TransactionId
-
-SELECT
-	LEFT(ms.StaffName, CHARINDEX(' ',ms.StaffName) - 1)[StaffName],
-	hss.TransactionId [TransactionID],
-	COUNT(dss.TreatmentId) [Total Treatment per Transaction]
-FROM MsStaff as ms
-JOIN HeaderSalonServices as hss on hss.StaffId = ms.StaffId
-JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
-GROUP BY ms.StaffName, hss.TransactionId
-
-SELECT
-	LEFT(ms.StaffName, CHARINDEX(' ',ms.StaffName) - 1)[StaffName],
-	hss.TransactionId [TransactionID],
-	COUNT(dss.TreatmentId) [Total Treatment per Transaction]
-FROM MsStaff as ms
-JOIN HeaderSalonServices as hss on hss.StaffId = ms.StaffId
-JOIN DetailSalonServices as dss on dss.TransactionId = hss.TransactionId
-GROUP BY ms.StaffName, hss.TransactionId
-
 SELECT * FROM MsTreatmentType
 SELECT * FROM MsTreatment
 SELECT * FROM MsStaff

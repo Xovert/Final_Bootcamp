@@ -1,6 +1,6 @@
 # Final Bootcamp
-Assignment 1 - 3 SQL<br>
-Assignment Java/OOP<br>
-Assignment Python/MachineLearning<br>
+3 Assignment SQL<br>
+2 Assignment Java/OOP<br>
+2 Assignment Python/MachineLearning<br>
 
 Berisi assignment-assignment dari Final Bootcamp
